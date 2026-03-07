@@ -17,10 +17,10 @@ export default function Home() {
               List your car
             </a>
             <a
-              href="#"
+              href="/bookings"
               className="bg-white/15 text-white px-5 py-2 rounded-md backdrop-blur-sm transition-colors hover:bg-white/25"
             >
-              Sign in
+              My Bookings
             </a>
           </nav>
         </div>
@@ -37,7 +37,7 @@ export default function Home() {
           style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(96,165,250,0.15) 0%, transparent 60%)" }}
         />
 
-        <div className="max-w-[860px] w-full text-center relative z-[1]">
+        <div className="max-w-[1100px] w-full text-center relative z-[1]">
           <p className="inline-block text-[0.8125rem] font-semibold text-blue-300 uppercase tracking-[0.1em] mb-4">
             Rent a car, anywhere
           </p>

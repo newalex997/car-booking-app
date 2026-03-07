@@ -33,8 +33,6 @@ export async function getSearchResults(
     { params: { searchVersion: 2 } },
   );
 
-  console.log({ data });
-
   return data;
 }
 

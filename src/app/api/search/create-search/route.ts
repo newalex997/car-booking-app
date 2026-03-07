@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const {
     location,
+    dropoffLocation,
     pickupDate,
     pickupTime,
     dropoffDate,
@@ -13,6 +14,7 @@ export async function POST(request: NextRequest) {
     residenceCountry,
   } = body as {
     location: LocationResult;
+    dropoffLocation?: LocationResult;
     pickupDate: string;
     pickupTime: string;
     dropoffDate: string;
@@ -30,6 +32,7 @@ export async function POST(request: NextRequest) {
   try {
     const result = await createSearch({
       location,
+      dropoffLocation,
       pickupDate,
       pickupTime,
       dropoffDate,

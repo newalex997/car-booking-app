@@ -20,6 +20,7 @@ export interface AutocompleteResponse {
 
 export interface CreateSearchParams {
   location: LocationResult;
+  dropoffLocation?: LocationResult;
   pickupDate: string; // "YYYY-MM-DD"
   pickupTime: string; // "HH:MM"
   dropoffDate: string; // "YYYY-MM-DD"
@@ -101,5 +102,27 @@ export interface SearchResultsResponse {
   errors: unknown;
   data: {
     offers: Offer[];
+  };
+}
+
+export interface BookingFormData {
+  name: string;
+  identityDoc: string;
+  email: string;
+  phone: string;
+  country: string;
+  flightNumber?: string;
+  specialRequests?: string;
+}
+
+export interface PaginatedSearchResultsResponse {
+  success: boolean;
+  errors: unknown;
+  data: {
+    offers: Offer[];
+    total: number;
+    page: number;
+    pageSize: number;
+    totalPages: number;
   };
 }
