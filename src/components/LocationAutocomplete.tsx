@@ -5,7 +5,6 @@ import { LocationResult } from "@/types/booking";
 
 interface Props {
   value: string;
-  onChange: (value: string) => void;
   onSelect?: (result: LocationResult) => void;
   placeholder?: string;
   required?: boolean;
@@ -13,7 +12,6 @@ interface Props {
 
 export default function LocationAutocomplete({
   value,
-  onChange,
   onSelect,
   placeholder,
   required,
@@ -67,7 +65,6 @@ export default function LocationAutocomplete({
 
   const select = (result: LocationResult) => {
     setQuery(result.label);
-    onChange(result.label);
     setIsOpen(false);
     setActiveIndex(-1);
     onSelect?.(result);
@@ -75,7 +72,6 @@ export default function LocationAutocomplete({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    onChange(e.target.value);
     setActiveIndex(-1);
   };
 

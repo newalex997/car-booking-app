@@ -34,7 +34,6 @@ export async function signOfferToken(payload: OfferTokenPayload): Promise<string
   return new SignJWT({ ...payload })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("2h")
     .sign(getSecret());
 }
 

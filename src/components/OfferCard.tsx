@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Offer } from "@/types/booking";
 
@@ -17,99 +17,41 @@ interface Props {
   searchContext?: SearchContext;
 }
 
-const specs = [
-  {
-    key: "transmission",
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="w-3.5 h-3.5 shrink-0"
-      >
-        <circle cx="3" cy="13" r="1.5" />
-        <circle cx="8" cy="13" r="1.5" />
-        <circle cx="13" cy="13" r="1.5" />
-        <circle cx="3" cy="3" r="1.5" />
-        <circle cx="13" cy="3" r="1.5" />
-        <path
-          strokeLinecap="round"
-          d="M3 11.5V4.5M13 11.5V4.5M8 11.5V8m0 0H3m5 0h5"
-        />
-      </svg>
-    ),
-  },
-  {
-    key: "seats",
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="w-3.5 h-3.5 shrink-0"
-      >
-        <circle cx="8" cy="4" r="2" />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4 14c0-2.21 1.79-4 4-4s4 1.79 4 4"
-        />
-      </svg>
-    ),
-  },
-  {
-    key: "bags",
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="w-3.5 h-3.5 shrink-0"
-      >
-        <rect x="2" y="6" width="12" height="8" rx="1.5" />
-        <path
-          strokeLinecap="round"
-          d="M5 6V4.5A1.5 1.5 0 016.5 3h3A1.5 1.5 0 0111 4.5V6"
-        />
-      </svg>
-    ),
-  },
-  {
-    key: "ac",
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="w-3.5 h-3.5 shrink-0"
-      >
-        <path
-          strokeLinecap="round"
-          d="M8 1v14M1 8h14M3.05 3.05l9.9 9.9M12.95 3.05l-9.9 9.9"
-        />
-      </svg>
-    ),
-  },
-  {
-    key: "doors",
-    icon: (
-      <svg
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        className="w-3.5 h-3.5 shrink-0"
-      >
-        <rect x="3" y="2" width="10" height="12" rx="1" />
-        <circle cx="11" cy="8" r="0.75" fill="currentColor" stroke="none" />
-      </svg>
-    ),
-  },
-];
+const SPEC_ICONS: Record<string, ReactNode> = {
+  transmission: (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 shrink-0">
+      <circle cx="3" cy="13" r="1.5" />
+      <circle cx="8" cy="13" r="1.5" />
+      <circle cx="13" cy="13" r="1.5" />
+      <circle cx="3" cy="3" r="1.5" />
+      <circle cx="13" cy="3" r="1.5" />
+      <path strokeLinecap="round" d="M3 11.5V4.5M13 11.5V4.5M8 11.5V8m0 0H3m5 0h5" />
+    </svg>
+  ),
+  seats: (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 shrink-0">
+      <circle cx="8" cy="4" r="2" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 14c0-2.21 1.79-4 4-4s4 1.79 4 4" />
+    </svg>
+  ),
+  bags: (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 shrink-0">
+      <rect x="2" y="6" width="12" height="8" rx="1.5" />
+      <path strokeLinecap="round" d="M5 6V4.5A1.5 1.5 0 016.5 3h3A1.5 1.5 0 0111 4.5V6" />
+    </svg>
+  ),
+  ac: (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 shrink-0">
+      <path strokeLinecap="round" d="M8 1v14M1 8h14M3.05 3.05l9.9 9.9M12.95 3.05l-9.9 9.9" />
+    </svg>
+  ),
+  doors: (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 shrink-0">
+      <rect x="3" y="2" width="10" height="12" rx="1" />
+      <circle cx="11" cy="8" r="0.75" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+};
 
 export default function OfferCard({ offer, rentalDays, searchContext }: Props) {
   const router = useRouter();
@@ -196,18 +138,15 @@ export default function OfferCard({ offer, rentalDays, searchContext }: Props) {
             </span>
           </div>
           <div className="flex gap-4 flex-wrap">
-            {specItems.map((s) => {
-              const spec = specs.find((x) => x.key === s.key);
-              return (
-                <span
-                  key={s.key}
-                  className="flex items-center gap-1 text-[0.8125rem] text-slate-500"
-                >
-                  {spec?.icon}
-                  {s.label}
-                </span>
-              );
-            })}
+            {specItems.map((s) => (
+              <span
+                key={s.key}
+                className="flex items-center gap-1 text-[0.8125rem] text-slate-500"
+              >
+                {SPEC_ICONS[s.key]}
+                {s.label}
+              </span>
+            ))}
           </div>
         </div>
 

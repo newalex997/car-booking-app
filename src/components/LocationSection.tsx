@@ -54,7 +54,6 @@ export default function LocationSection({ control }: Props) {
           render={({ field }) => (
             <LocationAutocomplete
               value={field.value?.label ?? ""}
-              onChange={() => {}}
               onSelect={(result: LocationResult) => field.onChange(result)}
               placeholder="City, airport or address"
               required
